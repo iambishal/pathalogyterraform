@@ -1,6 +1,7 @@
 name: 'Pathology-Pipeline-Destroy'
 
-on: none
+on:  
+  workflow_dispatch
 
 permissions:
   contents: read
