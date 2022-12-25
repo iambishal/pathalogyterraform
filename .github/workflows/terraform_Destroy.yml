@@ -1,4 +1,4 @@
-name: 'Pathology-Pipeline'
+name: 'Pathology-Pipeline-Destroy'
 
 on:
   push:
