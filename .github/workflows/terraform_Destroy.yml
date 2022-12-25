@@ -1,15 +1,15 @@
 name: 'Pathology-Pipeline-Destroy'
 
 on:
-  push:
-  pull_request:
+ # push:
+ # pull_request:
 
 permissions:
   contents: read
 
 jobs:
   Terraform:
-    name: 'Terraform-Run'
+    name: 'Terraform'
     runs-on: ubuntu-latest
     environment: Development
 
