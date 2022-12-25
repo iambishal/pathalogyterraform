@@ -115,28 +115,3 @@ resource "azurerm_network_interface" "pathlogy-ni1" {
   }
 }
 
-
-
-resource "azurerm_linux_virtual_machine" "pathology-vm1" {
-  name                = "pathology-vm1"
-  resource_group_name = azurerm_resource_group.pathology.name
-  location            = azurerm_resource_group.pathology.location
-  size                = "Standard_F2"
-  admin_username      = "adminuser"
-  network_interface_ids = [
-    azurerm_network_interface.pathlogy-ni1.id,
-  ]
-
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
-  }
-}
-
