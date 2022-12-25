@@ -2,7 +2,6 @@ name: 'Pathology-Pipeline'
 
 on:
   push:
-    branches: [ "master" ]
   pull_request:
 
 permissions:
