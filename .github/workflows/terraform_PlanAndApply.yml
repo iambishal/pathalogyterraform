@@ -1,4 +1,4 @@
-name: 'Pathology-AzureResource-Pipeline'
+name: 'Pathology-Pipeline-Plan'
 
 on:
   push:
@@ -10,9 +10,9 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform-Plan'
     runs-on: ubuntu-latest
-    environment: production
+    environment: Development
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -47,4 +47,36 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
 
-   
+   terraform:
+    name: 'Terraform-Apply'
+    runs-on: ubuntu-latest
+    environment: Development
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      ARM_CLIENT_ID: "224661aa-6f33-4c9f-91b1-265d23fcbdde"
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: "a60e14d3-9415-4783-ae22-98d895dd008c"
+      ARM_TENANT_ID: "b8aef98a-c2aa-4ba7-a5c5-4e14fea34a7b"
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+     - name: Terraform Apply
+   #   if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
+     run: terraform apply -auto-approve -input=false
