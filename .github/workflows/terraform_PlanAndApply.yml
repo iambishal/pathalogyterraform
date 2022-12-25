@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
+  Terraform-Plan:
     name: 'Terraform-Plan'
     runs-on: ubuntu-latest
     environment: Development
@@ -47,7 +47,7 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
 
-   terraform:
+   Terraform-Apply:
     name: 'Terraform-Apply'
     runs-on: ubuntu-latest
     environment: Development
