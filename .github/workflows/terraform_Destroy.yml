@@ -1,8 +1,6 @@
 name: 'Pathology-Pipeline-Destroy'
 
-on:
- # push:
- # pull_request:
+on: none
 
 permissions:
   contents: read
@@ -24,6 +22,9 @@ jobs:
       ARM_TENANT_ID: "b8aef98a-c2aa-4ba7-a5c5-4e14fea34a7b"
 
     steps:
+    - name: manual approval 
+      with:
+
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
